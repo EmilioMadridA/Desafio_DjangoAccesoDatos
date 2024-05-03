@@ -20,13 +20,21 @@ def crear_sub_tarea(descripcion, tarea_id):
     return recupera_tareas_y_sub_tareas()
 
 def elimina_tarea(tarea_id):
-    tarea = Tarea.objects.get(id=tarea_id)
+    try:
+        tarea = Tarea.objects.get(id=tarea_id)
+    except ObjectDoesNotExist:
+        print(f"No se encontró la Tarea con id {tarea_id}.")
+        return
     tarea.eliminada = True
     tarea.save()
     return recupera_tareas_y_sub_tareas()
 
 def elimina_sub_tarea(subtarea_id):
-    subtarea = SubTarea.objects.get(id=subtarea_id)
+    try:
+        subtarea = SubTarea.objects.get(id=subtarea_id)
+    except ObjectDoesNotExist:
+        print(f"No se encontró la SubTarea con id {subtarea_id}.")
+        return
     subtarea.eliminada = True
     subtarea.save()
     return recupera_tareas_y_sub_tareas()
